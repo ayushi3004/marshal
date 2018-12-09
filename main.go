@@ -10,7 +10,7 @@ import (
 
 var issues []Issue
 var index bleve.Index
-
+var helpParam = "help"
 func main() {
 	// issues = append(issues, Issue{MssgShort: "Need help. 4 people...", Status: "Open", Area: "Velachery", Address: "blah blah", PhoneNo: "9765829276", DisasterType: "Flood", SquashedMssgs: []string{"Need help. 4 people stuck in flood. No food or water. Please send boats", "Stuck in flood. 4 people. Send help urgently"}, Acknowledgement: true})
 	// issues = append(issues, Issue{MssgShort: "Fire! Fire! family...", Status: "Dispatched", Area: "Perungudi", Address: "blu blah", PhoneNo: "222222222", DisasterType: "Fire", SquashedMssgs: []string{"Fire! Fire! family stuck. send fire brigade "}, Acknowledgement: true})
@@ -18,9 +18,9 @@ func main() {
 
 	//Comment it out after indexing
 	// var issue1 = Issue{Status: "Open", Area: "Velachery", Address: "blah blah", PhoneNo: "9765829276", DisasterType: "Flood", DetailedMssg: "Need help. 4 people stuck in flood. No food or water. Please send boats", Acknowledgement: true}
-	// var issue2 = Issue{Status: "Dispatched", Area: "Perungudi", Address: "blu blah", PhoneNo: "222222222", DisasterType: "Fire", DetailedMssg: "Fire! Fire! family stuck. send fire brigade ", Acknowledgement: true}
-	// var issue3 = Issue{Status: "Closed", Area: "OMR", Address: "boom ba", PhoneNo: "333333333", DisasterType: "Flood", DetailedMssg: "Flood. House drowning. We are 4 people. 2 kids. Send help. Also send food and torch. No electricity.", Acknowledgement: false}
-	// var issue4 = Issue{Status: "Closed", Area: "OMR", Address: "boom ba", PhoneNo: "444444444", DisasterType: "Flood", DetailedMssg: "Flood. House drowning. We are 4 people. 2 kids. Send help. Also send food and torch. No electricity.", Acknowledgement: false}
+	// var issue2 = Issue{Status: "Dispatched", Area: "Perungudi", Address: "blu blah", PhoneNo: "222222222", DisasterType: "Fire", DetailedMssg: "Fire! Fire! family stuck. send fire brigade. Help. ", Acknowledgement: true}
+	// var issue3 = Issue{Status: "Closed", Area: "OMR", Address: "boom ba", PhoneNo: "333333333", DisasterType: "Flood", DetailedMssg: "Flood. House drowning. We are 4 people. 2 kids. Send Help. Also send food and torch. No electricity.", Acknowledgement: false}
+	// var issue4 = Issue{Status: "Closed", Area: "OMR", Address: "boom ba", PhoneNo: "444444444", DisasterType: "Flood", DetailedMssg: "Thiruvanmiyur area. Full flood. Help. No electricity.", Acknowledgement: false}
 
 	// mapping := bleve.NewIndexMapping()
 	// index, err := bleve.New("test.bleve", mapping)
@@ -39,8 +39,8 @@ func main() {
 	}
 
 	router := mux.NewRouter()
-	router.HandleFunc("/issues/{query}", GetIssues).Methods("GET")
-	router.HandleFunc("/issues/{phoneNo}", GetIssue).Methods("GET")
+	router.HandleFunc("/issues", GetIssues).Methods("GET")
+	router.HandleFunc("/issues/{query}", GetIssue).Methods("GET")
 	router.HandleFunc("/issues/{phoneNo}", CreateIssue).Methods("POST")
 	router.HandleFunc("/issues/{phoneNo}", DeleteIssue).Methods("DELETE")
 	router.PathPrefix("/app").Handler(http.StripPrefix("/app", http.FileServer(http.Dir("./app/"))))

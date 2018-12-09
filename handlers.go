@@ -8,13 +8,7 @@ import (
 )
 
 func GetIssues(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	queryParam := params["query"]
-
-	// if(queryParam == ""){
-		
-	// }
-	query := bleve.NewQueryStringQuery(queryParam)
+	query := bleve.NewQueryStringQuery(helpParam)
 	search := bleve.NewSearchRequest(query)
 	search.Fields = []string{"*"}
 	searchResults, err := index.Search(search)
@@ -40,23 +34,48 @@ func GetIssues(w http.ResponseWriter, r *http.Request) {
 
 func GetIssue(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	for _, issue := range issues {
-		if issue.PhoneNo == params["phoneNo"] {
-			json.NewEncoder(w).Encode(issue)
-		} else {
-			json.NewEncoder(w).Encode("No. not found")
-		}
-		return
+	queryParam := params["query"]
+	query := bleve.NewQueryStringQuery(queryParam)
+	search := bleve.NewSearchRequest(query)
+	search.Fields = []string{"*"}
+	searchResults, err := index.Search(search)
+	if err != nil {
+		panic(err)
 	}
+
+	var issues []Issue
+	for _, res := range searchResults.Hits {
+		issue := Issue{
+			Status:          res.Fields["status"].(string),
+			Area:            res.Fields["area"].(string),
+			Address:         res.Fields["address"].(string),
+			PhoneNo:         res.Fields["phoneNo"].(string),
+			DisasterType:    res.Fields["disasterType"].(string),
+			DetailedMssg:    res.Fields["detailedMssg"].(string),
+			Acknowledgement: res.Fields["acknowledgement"].(bool),
+		}
+		issues = append(issues, issue)
+	}
+	json.NewEncoder(w).Encode(issues)
 }
 
+// func GetIssue(w http.ResponseWriter, r *http.Request) {
+// 	params := mux.Vars(r)
+// 	for _, issue := range issues {
+// 		if issue.PhoneNo == params["phoneNo"] {
+// 			json.NewEncoder(w).Encode(issue)
+// 		} else {
+// 			json.NewEncoder(w).Encode("No. not found")
+// 		}
+// 		return
+// 	}
+// }
+
 func CreateIssue(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
 	var issue Issue
 	_ = json.NewDecoder(r.Body).Decode(&issue)
-	issue.PhoneNo = params["phoneNo"]
-	issues = append(issues, issue)
-	json.NewEncoder(w).Encode(issue)
+	index.Index(issue.DetailedMssg, issue)
+	json.NewEncoder(w).Encode("Indexed")
 }
 
 func DeleteIssue(w http.ResponseWriter, r *http.Request) {
