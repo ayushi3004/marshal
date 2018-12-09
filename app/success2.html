@@ -13,12 +13,16 @@
 
 <body>
   <div id="app">
-    <job-detail 
-    v-bind:phone=phone 
-    v-bind:address=address 
-    v-bind:area=area 
-    v-bind:status=status 
-    v-bind:detailedMssg=detailedMssg></job-detail>
+    <div v-for="dh in detail">
+        <job-detail 
+        v-bind:phone=dh.phoneNo
+        v-bind:address=dh.address
+        v-bind:area="dh.area"
+        v-bind:status="dh.status"
+        v-bind:dm="dh.detailedMssg">
+      </job-detail>
+    </div>
+    
   </div>
 </body>
 
@@ -29,7 +33,7 @@
   });
   Vue.config.devtools = true
   Vue.component("job-detail", {
-    props: ["phone", "address", "area", "status", "detailedMssg"], 
+    props: ["phone", "address", "area", "status", "dm"], 
     data: function(){
       return{
         editing: false
@@ -52,7 +56,7 @@
           <div class="field">{{area}}</div>
           <div class="field">{{phone}}</div>
           <div class="field">{{status}}</div>
-          <div class="field">{{detailedMssg}}</div>
+          <div class="field">{{dm}}</div>
         </div>  
       </div>
       <div v-if="editing">
@@ -60,7 +64,8 @@
         <div><input class="block" type="textarea" v-model="area"> </div>
         <div><input class="block" type="textarea" v-model="phone"> </div>
         <div><input class="block" type="textarea" v-model="status"> </div>
-        <div><input class="block" type="textarea" v-model="detailedMssg"> </div>
+        <div><input class="block" type="textarea" v-model="dm"> </div>
+      </div>
       </div>   
       <button class="button brand-bg is-pulled-right" id="map" v-on:click="openMap"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
       
@@ -91,14 +96,12 @@
   var vm = new Vue({ router, 
     el : '#app',
     data: {
-      phone:"",
-      status: "open",
-      area: "Thiruvanmiyur",
-      address: `4/819, 3rd Cross Street, Sunnambu Kolathur, 
-      Thiruvengadam Nagar, Perungudi, Chennai, Tamil Nadu 600096`,
-      type: "rescue",
-      detailedMssg:"message ba ba black sheep",
-      acknowledge: true,
+      detail: []
+    },
+    computed: {
+      dh: function(){
+        return this.detail[0]
+      }
     },
     mounted: function(){
       var jsonResponse;
@@ -109,12 +112,8 @@
       var data1
       var that = this
       
-      jsonResponse = JSON.parse(xhttp.responseText)[0];
-      that.phone = jsonResponse.phoneNo
-      that.area = jsonResponse.area
-      that.address = jsonResponse.address
-      that.detailedMssg = jsonResponse.detailedMssg
-      that.status = jsonResponse.status
+      jsonResponse = JSON.parse(xhttp.responseText);
+      this.detail = jsonResponse
       
       console.log(that)
       console.log(jsonResponse)
