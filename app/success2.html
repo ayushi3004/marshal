@@ -13,7 +13,12 @@
 
 <body>
   <div id="app">
-    <job-detail v-bind:phone=phone v-bind:address=address v-bind:area=area v-bind:status=status v-bind:detailedMssg=detailedMssg></job-detail>
+    <job-detail 
+    v-bind:phone=phone 
+    v-bind:address=address 
+    v-bind:area=area 
+    v-bind:status=status 
+    v-bind:detailedMssg=detailedMssg></job-detail>
   </div>
 </body>
 
@@ -99,23 +104,21 @@
       var jsonResponse;
       var xhttp = new XMLHttpRequest()
       var request = "http://localhost:8000/issues/"+this.$route.query.number
-      xhttp.open("GET", request, true);
+      xhttp.open("GET", request, false);
       xhttp.send();
       var data1
       var that = this
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          jsonResponse = JSON.parse(this.responseText)[0];
-          that.phone = jsonResponse.phoneNo
-          that.area = jsonResponse.area
-          that.address = jsonResponse.address
-          that.detailedMssg = jsonResponse.detailedMssg
-          that.status = jsonResponse.status
-          
-          console.log(that)
-          console.log(jsonResponse)
-        }
-      };
+      
+      jsonResponse = JSON.parse(xhttp.responseText)[0];
+      that.phone = jsonResponse.phoneNo
+      that.area = jsonResponse.area
+      that.address = jsonResponse.address
+      that.detailedMssg = jsonResponse.detailedMssg
+      that.status = jsonResponse.status
+      
+      console.log(that)
+      console.log(jsonResponse)
+
     }
   })
   

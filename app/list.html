@@ -62,7 +62,7 @@
                 <div class="column">
                     <div v-for="c in cards()">
                         <detail-card v-if="c.status == 'Open'"
-                        v-bind:message=c.detailedMssg 
+                        v-bind:message="c.detailedMssg" 
                         v-bind:columnmode="columnmode"
                         v-bind:area="c.area"
                         v-bind:address="c.address"
