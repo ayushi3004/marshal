@@ -69,9 +69,8 @@
       },
       whatsapp_link: function(){
 
-        var long_message = this.squashed_messages[0]+
-         `
-Track it here: http://localhost:8000/issues/`+this.phone
+        var long_message = this.squashed_messages[0]+"\n"+this.phone+"\n"+this.address
+         `\nTrack it here: http://localhost:8000/issues/`+this.phone
 
         return "whatsapp://send?text="+encodeURIComponent(long_message)
       }
