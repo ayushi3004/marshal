@@ -40,8 +40,10 @@
                 <input v-model="query" type="text" placeholder="Search" class="input block is-fullwidth">
                 {{query}}
             </div>
+            <div id="mainlist" v-bind:class="{columns: columnmode}" class="is-multiline">
+                <div class="column is-full" style="height:60px">
             <button v-on:click="toggle" id="toggle" class="button is-pulled-right move-right brand-bg"><i class="fas fa-th"></i></button>
-            <div id="mainlist" v-bind:class="{columns: columnmode}">
+            </div>
                 <div class="column">
                     <div class="card block"><div class="card-content">1</div></div>
                     <div class="card block"><div class="card-content">2</div></div>
