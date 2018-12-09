@@ -7,6 +7,6 @@ type Issue struct {
 	Address         string   `json:"address"`
 	PhoneNo         string   `json:"phoneNo"`
 	DisasterType    string   `json:"disasterType"`
-	SquashedMssgs   []string `json:"squashedMssgs"`
+	DetailedMssg   	string 	 `json:"detailedMssg"`
 	Acknowledgement bool     `json:"acknowledgement"`
 }
