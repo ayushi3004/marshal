@@ -10,7 +10,7 @@
     
 </head>
 <style>
-    .button{
+    .brand-bg{
         background: #d02120;
         color: white;
     }
@@ -18,7 +18,7 @@
     .button:hover{
         color:white;
     }
-
+    
     #brand{
         font-weight: 900;
         font-family: sans-serif;
@@ -28,17 +28,14 @@
 </style>
 
 <body>
-
-    
-    
     <div id="app" class="container">
-            <nav class="navbar">
-                    <div class="navbar-brand">
-                        <a href="#" class="navbar-item">
-                            <div id="brand">Marshal</div>
-                        </a>
-                    </div>
-                </nav>
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a href="#" class="navbar-item">
+                    <div id="brand">Marshal</div>
+                </a>
+            </div>
+        </nav>
         <card-list>
             
         </card-list>
@@ -61,7 +58,7 @@
                 <input v-model="query" type="text" placeholder="Search" class="input block is-fullwidth">
                 {{query}}
             </div>
-            	<button v-on:click="toggle" id="toggle" class="button is-pulled-right move-right"><i class="fas fa-th"></i></button>
+            <button v-on:click="toggle" id="toggle" class="button is-pulled-right move-right brand-bg"><i class="fas fa-th"></i></button>
             <div id="mainlist" v-bind:class="{columns: columnmode}">
                 <div class="column">
                     <div class="card block"><div class="card-content">1</div></div>

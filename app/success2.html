@@ -7,7 +7,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <style>
+    .brand-bg{
+        background: #d02120;
+        color: white;
+    }
+    
+    .button:hover{
+        color:white;
+    }
+    
+    #brand{
+        font-weight: 900;
+        font-family: sans-serif;
+        color:#d02120;
+        font-size: 30px;
+    }
+</style>
 </head>
+
 <body>
   <div id="app">
     <job-detail></job-detail>
@@ -33,8 +51,15 @@
     },
     template: `
     <div class="container">
-      <button id="edit" v-on:click="toggleEdit">Edit</button>
-      <a v-bind:href="whatsapp_link()" data-action="share/whatsapp/share">Share via Whatsapp</a>
+      <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="#" class="navbar-item">
+                <div id="brand">Marshal</div>
+            </a>
+        </div>
+       </nav>
+      <button id="edit" v-on:click="toggleEdit" class="button is-pulled-right brand-bg"><i class="far fa-edit"></i></button>
+      <a class="button is-pulled-right brand-bg " v-bind:href="whatsapp_link()" data-action="share/whatsapp/share"><i class="fab fa-whatsapp"></i></a>
       <div v-if="!editing">
         <div id="address">
           <div class="field">{{address}}</div>
@@ -51,7 +76,7 @@
         <input class="block" type="textarea" v-model="status"> 
         <input class="block" type="textarea" v-model="original_message_short"> 
       </div>   
-      <button id="map" v-on:click="openMap">Map</button>
+      <button class="button brand-bg is-pulled-right" id="map" v-on:click="openMap"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
       
       
       
