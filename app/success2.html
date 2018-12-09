@@ -19,28 +19,29 @@
   Vue.component("job-detail", {
     data: function(){
       return{
-        original_message_short: "",
+        original_message_short: "help us please",
         status: "open",
-        area: "",
+        area: "Thiruvanmiyur",
         address: `4/819, 3rd Cross Street, Sunnambu Kolathur, 
         Thiruvengadam Nagar, Perungudi, Chennai, Tamil Nadu 600096`,
         phone: 12312,
         type: "rescue",
-        squashed_messages:["message"],
+        squashed_messages:["message ba ba black sheep"],
         acknowledge: true,
         editing: false
       }
     },
     template: `
-    <div>
+    <div class="container">
       <button id="edit" v-on:click="toggleEdit">Edit</button>
+      <a v-bind:href="whatsapp_link()" data-action="share/whatsapp/share">Share via Whatsapp</a>
       <div v-if="!editing">
         <div id="address">
-          <div>{{address}}</div>
-          <div>{{area}}</div>
-          <div>{{phone}}</div>
-          <div>{{status}}</div>
-          <div>{{original_message_short}}</div>
+          <div class="field">{{address}}</div>
+          <div class="field">{{area}}</div>
+          <div class="field">{{phone}}</div>
+          <div class="field">{{status}}</div>
+          <div class="field">{{original_message_short}}</div>
         </div>  
       </div>
       <div v-if="editing">
@@ -51,11 +52,8 @@
         <input class="block" type="textarea" v-model="original_message_short"> 
       </div>   
       <button id="map" v-on:click="openMap">Map</button>
-      <div id="search">
-        <input type="text">Content </input>
-      </div>
       
-      <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">Share via Whatsapp</a>
+      
       
     </div>
     `,
@@ -68,6 +66,9 @@
         var a = encodeURIComponent(this.address)
         var encodededAddress = "https://www.google.com/maps/search/?api=1&query="+a
         window.open(encodededAddress)
+      },
+      whatsapp_link: function(){
+        return "whatsapp://send?text="+encodeURIComponent(this.squashed_messages[0])
       }
     }
   })
@@ -76,41 +77,7 @@
     el : '#app'
   })
   
-  // var vm = new Vue({
-    //   el: '.editable-text',
-    //   prop: ['type'],
-    //   template: `
-    //   <div v-if="!editing">
-      //     <span class='text' @click="enableEditing">{{value}}</span>
-      //   </div>
-      //   <div v-if="editing">
-        //     <input v-model="tempValue" class="input"/>
-        //     <button @click="disableEditing"> Cancel </button>
-        //     <button @click="saveEdit"> Save </button>
-        //   </div>
-        //   `,
-        //   data: {
-          //     value: 'Click Me!',
-          //     tempValue: null,
-          //     editing: false
-          //   },
-          //   methods: {
-            //     enableEditing: function(){
-              //       this.tempValue = this.value;
-              //       this.editing = true;
-              //     },
-              //     disableEditing: function(){
-                //       this.tempValue = null;
-                //       this.editing = false;
-                //     },
-                //     saveEdit: function(){
-                  //       // However we want to save it to the database
-                  //       this.value = this.tempValue;
-                  //       this.disableEditing();
-                  //     }
-                  //   }
-                  // })
-                </script>
-                
-                </html>
-                
+  
+</script>
+
+</html>
