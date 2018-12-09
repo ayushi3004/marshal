@@ -51,11 +51,11 @@
         </div>  
       </div>
       <div v-if="editing">
-        <input class="block" type="textarea" v-model="address"> 
-        <input class="block" type="textarea" v-model="area"> 
-        <input class="block" type="textarea" v-model="phone"> 
-        <input class="block" type="textarea" v-model="status"> 
-        <input class="block" type="textarea" v-model="original_message_short"> 
+        <div><input class="block" type="textarea" v-model="address"> </div>
+        <div><input class="block" type="textarea" v-model="area"> </div>
+        <div><input class="block" type="textarea" v-model="phone"> </div>
+        <div><input class="block" type="textarea" v-model="status"> </div>
+        <div><input class="block" type="textarea" v-model="detailedMssg"> </div>
       </div>   
       <button class="button brand-bg is-pulled-right" id="map" v-on:click="openMap"><i class="fa fa-map-marker" aria-hidden="true"></i></button>
       
