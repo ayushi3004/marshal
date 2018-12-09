@@ -30,8 +30,14 @@
         props:["message", "phone", "address", "status","area"],
         template: `
         <div class="card block">
+            <div class="card-header">
+                <p class="card-header-title">{{phone}}</p>
+                <div class="card-header-icon">{{status}}</div>
+            </div>
             <div class="card-content">
-                {{message}}
+
+                {{message}} <br /><br />
+                Address: {{address}}
             </div>
         </div>
         `
@@ -56,7 +62,7 @@
                     <button v-on:click="toggle" id="toggle" class="button is-pulled-right move-right brand-bg"><i class="fas fa-th"></i></button>
                 </div>
                 <div class="column">
-                    <detail-card message="helo helo"></detail-card>
+                    <detail-card message="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." address="29, Colony Area, Wonderland" area="Wonderland" phone="7355599001" status="open"></detail-card>
                     <div class="card block"><div class="card-content">2</div></div>
                     <div class="card block"><div class="card-content">3</div></div>
                 </div>
