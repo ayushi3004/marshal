@@ -47,9 +47,13 @@
     Vue.component('card-list', {
         data: function() {
             return {
+                cards : [],
                 columnmode: true,
                 query: ""
             }
+        },
+        mounted: function(){
+            this.fetchData()
         },
         
         template: `
@@ -63,12 +67,20 @@
                     <button v-on:click="toggle" id="toggle" class="button is-pulled-right move-right brand-bg"><i class="fas fa-th"></i></button>
                 </div>
                 <div class="column">
-                    <detail-card message="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." address="29, Colony Area, Wonderland" area="Wonderland" phone="7355599001" status="open" v-bind:columnmode="columnmode"></detail-card>
+                    <detail-card message="dasadas" address="29, Colony Area, Wonderland" area="Wonderland" phone="7355599001" status="open" v-bind:columnmode="columnmode"></detail-card>
                     <div class="card block"><div class="card-content">2</div></div>
                     <div class="card block"><div class="card-content">3</div></div>
                 </div>
                 <div class="column">
-                    <div class="card block"><div class="card-content">4</div></div>
+                 <div v-for="c in cards">
+                    <detail-card v-if="c.status == 'Closed'"
+                        v-bind:message=c.detailedMssg 
+                        v-bind:columnmode="columnmode"
+                        v-bind:area="c.area"
+                        v-bind:address="c.address"
+                        v-bind:phone="c.phoneNo"
+                        v-bind:status="c.status"></detail-card>
+                </div>
                 </div>
                 <div class="column">
                     <div class="card block"><div class="card-content">8</div></div>
@@ -85,6 +97,21 @@
             }, 
             filter: function(){
                 console.log(this.input)
+            }, 
+            fetchData: function(){
+                var jsonResponse;
+                var xhttp = new XMLHttpRequest()
+                var request = "http://localhost:8000/issues"
+                xhttp.open("GET", request, true);
+                xhttp.send();
+                var data1
+                var that = this
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        jsonResponse = JSON.parse(this.responseText);
+                        that.cards = jsonResponse
+                    }
+                };
             }
         }
     })
