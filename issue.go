@@ -1,7 +1,7 @@
 package main
 
 type Issue struct {
-	MssgShort       string   `json:"messageShort"`
+	MssgShort       string   `json:"mssgShort"`
 	Status          string   `json:"status"`
 	Area            string   `json:"area"`
 	Address         string   `json:"address"`
