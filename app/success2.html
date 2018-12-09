@@ -13,7 +13,7 @@
 
 <body>
   <div id="app">
-    <job-detail v-bind:phone=phone></job-detail>
+    <job-detail v-bind:phone=phone v-bind:address=address v-bind:area=area v-bind:status=status v-bind:detailedMssg=detailedMssg></job-detail>
   </div>
 </body>
 
@@ -24,17 +24,9 @@
   });
   Vue.config.devtools = true
   Vue.component("job-detail", {
-    props: ["phone"], 
+    props: ["phone", "address", "area", "status", "detailedMssg"], 
     data: function(){
       return{
-        original_message_short: "help us please",
-        status: "open",
-        area: "Thiruvanmiyur",
-        address: `4/819, 3rd Cross Street, Sunnambu Kolathur, 
-        Thiruvengadam Nagar, Perungudi, Chennai, Tamil Nadu 600096`,
-        type: "rescue",
-        squashed_messages:["message ba ba black sheep"],
-        acknowledge: true,
         editing: false
       }
     },
@@ -55,7 +47,7 @@
           <div class="field">{{area}}</div>
           <div class="field">{{phone}}</div>
           <div class="field">{{status}}</div>
-          <div class="field">{{original_message_short}}</div>
+          <div class="field">{{detailedMssg}}</div>
         </div>  
       </div>
       <div v-if="editing">
@@ -83,7 +75,7 @@
       },
       whatsapp_link: function(){
         
-        var long_message = this.squashed_messages[0]+"\n"+this.phone+"\n"+this.address+
+        var long_message = this.detailedMssg+"\n"+this.phone+"\n"+this.address+
         `\nTrack it here: http://localhost:8000/issues/`+this.phone
         
         return "whatsapp://send?text="+encodeURIComponent(long_message)
@@ -94,7 +86,14 @@
   var vm = new Vue({ router, 
     el : '#app',
     data: {
-      phone:""
+      phone:"",
+      status: "open",
+      area: "Thiruvanmiyur",
+      address: `4/819, 3rd Cross Street, Sunnambu Kolathur, 
+      Thiruvengadam Nagar, Perungudi, Chennai, Tamil Nadu 600096`,
+      type: "rescue",
+      detailedMssg:"message ba ba black sheep",
+      acknowledge: true,
     },
     mounted: function(){
       var jsonResponse;
@@ -108,6 +107,11 @@
         if (this.readyState == 4 && this.status == 200) {
           jsonResponse = JSON.parse(this.responseText)[0];
           that.phone = jsonResponse.phoneNo
+          that.area = jsonResponse.area
+          that.address = jsonResponse.address
+          that.detailedMssg = jsonResponse.detailedMssg
+          that.status = jsonResponse.status
+          
           console.log(that)
           console.log(jsonResponse)
         }
