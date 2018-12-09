@@ -1,0 +1,15 @@
+.brand-bg{
+    background: #d02120;
+    color: white;
+}
+
+.button:hover{
+    color:white;
+}
+
+#brand{
+    font-weight: 900;
+    font-family: sans-serif;
+    color:#d02120;
+    font-size: 30px;
+}
