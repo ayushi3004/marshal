@@ -68,7 +68,12 @@
         window.open(encodededAddress)
       },
       whatsapp_link: function(){
-        return "whatsapp://send?text="+encodeURIComponent(this.squashed_messages[0])
+
+        var long_message = this.squashed_messages[0]+
+         `
+Track it here: http://localhost:8000/issues/`+this.phone
+
+        return "whatsapp://send?text="+encodeURIComponent(long_message)
       }
     }
   })
