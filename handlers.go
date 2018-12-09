@@ -10,6 +10,10 @@ import (
 func GetIssues(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	queryParam := params["query"]
+
+	// if(queryParam == ""){
+		
+	// }
 	query := bleve.NewQueryStringQuery(queryParam)
 	search := bleve.NewSearchRequest(query)
 	search.Fields = []string{"*"}
@@ -21,7 +25,6 @@ func GetIssues(w http.ResponseWriter, r *http.Request) {
 	var issues []Issue
 	for _, res := range searchResults.Hits {
 		issue := Issue{
-			MssgShort:       res.Fields["mssgShort"].(string),
 			Status:          res.Fields["status"].(string),
 			Area:            res.Fields["area"].(string),
 			Address:         res.Fields["address"].(string),
