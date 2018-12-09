@@ -16,7 +16,7 @@ func main() {
 	// issues = append(issues, Issue{MssgShort: "Fire! Fire! family...", Status: "Dispatched", Area: "Perungudi", Address: "blu blah", PhoneNo: "222222222", DisasterType: "Fire", SquashedMssgs: []string{"Fire! Fire! family stuck. send fire brigade "}, Acknowledgement: true})
 	// issues = append(issues, Issue{MssgShort: "Flood. House drowning...", Status: "Closed", Area: "OMR", Address: "boom ba", PhoneNo: "333333333", DisasterType: "Flood", SquashedMssgs: []string{"Flood. House drowning. We are 4 people. 2 kids. Send help. Also send food and torch. No electricity.", "We are all going to die. All of us."}, Acknowledgement: false})
 
-	//Comment it out after indexing
+	// Comment it out after indexing
 	// var issue1 = Issue{Status: "Open", Area: "Velachery", Address: "blah blah", PhoneNo: "9765829276", DisasterType: "Flood", DetailedMssg: "Need help. 4 people stuck in flood. No food or water. Please send boats", Acknowledgement: true}
 	// var issue2 = Issue{Status: "Dispatched", Area: "Perungudi", Address: "blu blah", PhoneNo: "222222222", DisasterType: "Fire", DetailedMssg: "Fire! Fire! family stuck. send fire brigade. Help. ", Acknowledgement: true}
 	// var issue3 = Issue{Status: "Closed", Area: "OMR", Address: "boom ba", PhoneNo: "333333333", DisasterType: "Flood", DetailedMssg: "Flood. House drowning. We are 4 people. 2 kids. Send Help. Also send food and torch. No electricity.", Acknowledgement: false}

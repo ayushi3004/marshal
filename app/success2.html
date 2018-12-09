@@ -7,18 +7,24 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/vue-router"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <div id="app">
-    <job-detail></job-detail>
+    <job-detail v-bind:phone=phone></job-detail>
   </div>
 </body>
 
 <script>
+  var router = new VueRouter({
+    mode: 'history',
+    routes: []
+  });
   Vue.config.devtools = true
   Vue.component("job-detail", {
+    props: ["phone"], 
     data: function(){
       return{
         original_message_short: "help us please",
@@ -26,7 +32,6 @@
         area: "Thiruvanmiyur",
         address: `4/819, 3rd Cross Street, Sunnambu Kolathur, 
         Thiruvengadam Nagar, Perungudi, Chennai, Tamil Nadu 600096`,
-        phone: 12312,
         type: "rescue",
         squashed_messages:["message ba ba black sheep"],
         acknowledge: true,
@@ -37,11 +42,11 @@
     <div class="container">
       <nav class="navbar">
         <div class="navbar-brand">
-            <a href="#" class="navbar-item">
-                <div id="brand">Marshal</div>
-            </a>
+          <a href="#" class="navbar-item">
+            <div id="brand">Marshal</div>
+          </a>
         </div>
-       </nav>
+      </nav>
       <button id="edit" v-on:click="toggleEdit" class="button is-pulled-right brand-bg"><i class="far fa-edit"></i></button>
       <a class="button is-pulled-right brand-bg " v-bind:href="whatsapp_link()" data-action="share/whatsapp/share"><i class="fab fa-whatsapp"></i></a>
       <div v-if="!editing">
@@ -77,17 +82,37 @@
         window.open(encodededAddress)
       },
       whatsapp_link: function(){
-
+        
         var long_message = this.squashed_messages[0]+"\n"+this.phone+"\n"+this.address+
-         `\nTrack it here: http://localhost:8000/issues/`+this.phone
-
+        `\nTrack it here: http://localhost:8000/issues/`+this.phone
+        
         return "whatsapp://send?text="+encodeURIComponent(long_message)
       }
     }
   })
   
-  var vm = new Vue({
-    el : '#app'
+  var vm = new Vue({ router, 
+    el : '#app',
+    data: {
+      phone:""
+    },
+    mounted: function(){
+      var jsonResponse;
+      var xhttp = new XMLHttpRequest()
+      var request = "http://localhost:8000/issues/"+this.$route.query.number
+      xhttp.open("GET", request, true);
+      xhttp.send();
+      var data1
+      var that = this
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          jsonResponse = JSON.parse(this.responseText)[0];
+          that.phone = jsonResponse.phoneNo
+          console.log(that)
+          console.log(jsonResponse)
+        }
+      };
+    }
   })
   
   
