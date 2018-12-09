@@ -85,7 +85,7 @@
       },
       whatsapp_link: function(){
         
-        var long_message = this.detailedMssg+"\n"+this.phone+"\n"+this.address+
+        var long_message = this.dm+"\n"+this.phone+"\n"+this.address+
         `\nTrack it here: http://localhost:8000/issues/`+this.phone
         
         return "whatsapp://send?text="+encodeURIComponent(long_message)
@@ -106,7 +106,7 @@
     mounted: function(){
       var jsonResponse;
       var xhttp = new XMLHttpRequest()
-      var request = "http://localhost:8000/issues/"+this.$route.query.number
+      var request = "/issues/"+this.$route.query.number
       xhttp.open("GET", request, false);
       xhttp.send();
       var data1
