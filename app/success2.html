@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello Bulma!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <job-detail></job-detail>
+  </div>
+</body>
+
+<script>
+  Vue.config.devtools = true
+  Vue.component("job-detail", {
+    data: function(){
+      return{
+        original_message_short: "",
+        status: "open",
+        area: "",
+        address: `4/819, 3rd Cross Street, Sunnambu Kolathur, 
+        Thiruvengadam Nagar, Perungudi, Chennai, Tamil Nadu 600096`,
+        phone: 12312,
+        type: "rescue",
+        squashed_messages:["message"],
+        acknowledge: true,
+        editing: false
+      }
+    },
+    template: `
+    <div>
+      <button id="edit" v-on:click="toggleEdit">Edit</button>
+      <div v-if="!editing">
+        <div id="address">
+          <div>{{address}}</div>
+          <div>{{area}}</div>
+          <div>{{phone}}</div>
+          <div>{{status}}</div>
+          <div>{{original_message_short}}</div>
+        </div>  
+      </div>
+      <div v-if="editing">
+        <input class="block" type="textarea" v-model="address"> 
+        <input class="block" type="textarea" v-model="area"> 
+        <input class="block" type="textarea" v-model="phone"> 
+        <input class="block" type="textarea" v-model="status"> 
+        <input class="block" type="textarea" v-model="original_message_short"> 
+      </div>   
+      <button id="map" v-on:click="openMap">Map</button>
+      <div id="search">
+        <input type="text">Content </input>
+      </div>
+      
+      <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">Share via Whatsapp</a>
+      
+    </div>
+    `,
+    
+    methods : {
+      toggleEdit: function(){
+        this.editing = !this.editing
+      }, 
+      openMap: function(){
+        var a = encodeURIComponent(this.address)
+        var encodededAddress = "https://www.google.com/maps/search/?api=1&query="+a
+        window.open(encodededAddress)
+      }
+    }
+  })
+  
+  var vm = new Vue({
+    el : '#app'
+  })
+  
+  // var vm = new Vue({
+    //   el: '.editable-text',
+    //   prop: ['type'],
+    //   template: `
+    //   <div v-if="!editing">
+      //     <span class='text' @click="enableEditing">{{value}}</span>
+      //   </div>
+      //   <div v-if="editing">
+        //     <input v-model="tempValue" class="input"/>
+        //     <button @click="disableEditing"> Cancel </button>
+        //     <button @click="saveEdit"> Save </button>
+        //   </div>
+        //   `,
+        //   data: {
+          //     value: 'Click Me!',
+          //     tempValue: null,
+          //     editing: false
+          //   },
+          //   methods: {
+            //     enableEditing: function(){
+              //       this.tempValue = this.value;
+              //       this.editing = true;
+              //     },
+              //     disableEditing: function(){
+                //       this.tempValue = null;
+                //       this.editing = false;
+                //     },
+                //     saveEdit: function(){
+                  //       // However we want to save it to the database
+                  //       this.value = this.tempValue;
+                  //       this.disableEditing();
+                  //     }
+                  //   }
+                  // })
+                </script>
+                
+                </html>
+                

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    
+</head>
+<style>
+    .button{
+        background: #d02120;
+        color: white;
+    }
+    
+    .button:hover{
+        color:white;
+    }
+
+    #brand{
+        font-weight: 900;
+        font-family: sans-serif;
+        color:#d02120;
+        font-size: 30px;
+    }
+</style>
+
+<body>
+
+    
+    
+    <div id="app" class="container">
+            <nav class="navbar">
+                    <div class="navbar-brand">
+                        <a href="#" class="navbar-item">
+                            <div id="brand">Marshal</div>
+                        </a>
+                    </div>
+                </nav>
+        <card-list>
+            
+        </card-list>
+    </div>
+</body>
+<script>
+    Vue.config.devtools = true
+    
+    Vue.component('card-list', {
+        data: function() {
+            return {
+                columnmode: true,
+                query: ""
+            }
+        },
+        
+        template: `
+        <div>
+            <div id="search" class="field">
+                <input v-model="query" type="text" placeholder="Search" class="input block is-fullwidth">
+                {{query}}
+            </div>
+            	<button v-on:click="toggle" id="toggle" class="button is-pulled-right move-right"><i class="fas fa-th"></i></button>
+            <div id="mainlist" v-bind:class="{columns: columnmode}">
+                <div class="column">
+                    <div class="card block"><div class="card-content">1</div></div>
+                    <div class="card block"><div class="card-content">2</div></div>
+                    <div class="card block"><div class="card-content">3</div></div>
+                </div>
+                <div class="column">
+                    <div class="card block"><div class="card-content">4</div></div>
+                </div>
+                <div class="column">
+                    <div class="card block"><div class="card-content">8</div></div>
+                    <div class="card block"><div class="card-content">21</div></div>
+                </div>
+            </div>
+        </div>
+        `,
+        
+        
+        methods: {
+            toggle: function() {
+                this.columnmode = !this.columnmode
+            }, 
+            filter: function(){
+                console.log(this.input)
+            }
+        }
+    })
+    
+    var app = new Vue({
+        el: "#app"
+    })
+    
+    
+    
+    // document.getElementById("toggle").onclick = function(e){
+        //     var classlist = document.getElementById("mainlist").classList
+        //     if(classlist.contains("columns")){
+            //         classlist.remove("columns")
+            //     } else {
+                //         classlist.add("columns")
+                //     }
+                // }
+            </script>
+            
+            </html>

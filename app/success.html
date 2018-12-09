@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+
+    <div>
+        <button id="edit">Toggle</button>
+        <div id="address">
+            4/819, 3rd Cross Street, Sunnambu Kolathur, 
+            Thiruvengadam Nagar, Perungudi, Chennai, Tamil Nadu 600096
+        </div>    
+        <button id="map">Map</button>
+        <div id="search">
+                <input type="text">Content </input>
+        </div>
+
+        <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">Share via Whatsapp</a>
+
+    </div>
+</body>
+<script>
+// document.getElementById("toggle").onclick = function(e){
+//     var classlist = document.getElementById("mainlist").classList
+//     if(classlist.contains("columns")){
+//         classlist.remove("columns")
+//     } else {
+//         classlist.add("columns")
+//     }
+// }
+
+document.getElementById("map").onclick = function(e){
+    var addd = encodeURIComponent(document.getElementById("address").innerText)
+    var encodededAddress = "https://www.google.com/maps/search/?api=1&query="+addd
+    window.open(encodededAddress)
+}
+</script>
+
+</html>
+
+<!-- new Vue({
+    el: '.editable-text',
+    prop: ['type'],
+    template: `
+      <div v-if="!editing">
+        <span class='text' @click="enableEditing">{{value}}</span>
+      </div>
+      <div v-if="editing">
+        <input v-model="tempValue" class="input"/>
+        <button @click="disableEditing"> Cancel </button>
+        <button @click="saveEdit"> Save </button>
+      </div>
+    `,
+    data: {
+      value: 'Click Me!',
+      tempValue: null,
+      editing: false
+    },
+    methods: {
+      enableEditing: function(){
+        this.tempValue = this.value;
+        this.editing = true;
+      },
+      disableEditing: function(){
+        this.tempValue = null;
+        this.editing = false;
+      },
+      saveEdit: function(){
+        // However we want to save it to the database
+        this.value = this.tempValue;
+        this.disableEditing();
+      }
+    }
+  }) -->

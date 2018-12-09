@@ -15,10 +15,12 @@ func main() {
 	issues = append(issues, Issue{MssgShort: "Flood. House drowning...", Status: "Closed", Area: "OMR", Address: "boom ba", PhoneNo: "333333333", DisasterType: "Flood", SquashedMssgs: []string{"Flood. House drowning. We are 4 people. 2 kids. Send help. Also send food and torch. No electricity.", "We are all going to die. All of us."}, Acknowledgement: false})
 
 	router := mux.NewRouter()
+
 	router.HandleFunc("/issues", GetIssues).Methods("GET")
 	router.HandleFunc("/issues/{phoneNo}", GetIssue).Methods("GET")
 	router.HandleFunc("/issues/{phoneNo}", CreateIssue).Methods("POST")
 	router.HandleFunc("/issues/{phoneNo}", DeleteIssue).Methods("DELETE")
+	router.PathPrefix("/app").Handler(http.StripPrefix("/app", http.FileServer(http.Dir("./app/"))))
 	log.Fatal(http.ListenAndServe(":8000", router))
 
 }
